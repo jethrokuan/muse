@@ -88,7 +88,7 @@ h1 em { color: var(--green); font-family: Georgia, serif; font-weight: 400; }
 .notes-track { position: absolute; inset: 0; transition: transform 220ms cubic-bezier(.65,.02,.29,1); }
 .note { position: absolute; width: 24px; height: 16px; margin: -8px 0 0 -12px; border-radius: 55% 45%; background: var(--ink); transform: rotate(-12deg); }
 .note::after { content: ""; position: absolute; right: 1px; bottom: 7px; width: 2px; height: 49px; background: var(--ink); transform: rotate(12deg); transform-origin: bottom; }
-.note.ledger::before { content: ""; position: absolute; top: 7px; left: -7px; width: 38px; height: 1px; background: var(--ink); transform: rotate(12deg); }
+.note .ledger-line { position: absolute; left: -7px; width: 38px; height: 1px; background: var(--ink); transform: rotate(12deg); }
 .note.current { background: var(--green); box-shadow: 0 0 0 5px rgba(217,240,91,.52); }
 .note.upcoming { opacity: .42; }
 .note.past { opacity: .18; }
