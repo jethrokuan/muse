@@ -205,7 +205,13 @@ function renderDisplay(question) {
     notes.forEach((item, index) => {
       const targetIndex = display.targetIndex ?? index;
       const position = notePosition(item.pitch, clef);
-      const note = document.createElement("span"); note.className = `note ${index === targetIndex ? "current" : index < targetIndex ? "past" : "upcoming"}${position < 0 || position > 64 ? " ledger" : ""}`; note.style.left = `${display.type === "melody" ? 30 + index * 13 : display.stack ? 46 : notes.length > 3 ? 22 + index * 9 : 42 + index * 8}%`; note.style.top = `${position}px`; note.innerHTML = item.accidental ? `<b>${item.accidental}</b>` : ""; $("#notesTrack").append(note);
+      let ledgers = "";
+      if (position <= -16) {
+        for (let p = -16; p >= position; p -= 16) ledgers += `<i class="ledger-line" style="top: ${p - position + 7}px;"></i>`;
+      } else if (position >= 80) {
+        for (let p = 80; p <= position; p += 16) ledgers += `<i class="ledger-line" style="top: ${p - position + 7}px;"></i>`;
+      }
+      const note = document.createElement("span"); note.className = `note ${index === targetIndex ? "current" : index < targetIndex ? "past" : "upcoming"}`; note.style.left = `${display.type === "melody" ? 30 + index * 13 : display.stack ? 46 : notes.length > 3 ? 22 + index * 9 : 42 + index * 8}%`; note.style.top = `${position}px`; note.innerHTML = (item.accidental ? `<b>${item.accidental}</b>` : "") + ledgers; $("#notesTrack").append(note);
     });
     if (display.targetIndex != null) { $(".target-line").hidden = false; $(".target-line").style.left = `${22 + display.targetIndex * 9}%`; }
   } else {
